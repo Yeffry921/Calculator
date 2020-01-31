@@ -97,6 +97,20 @@
 //     })
 // });
 
+
+
+// //use the result of the operation as the first number to be operated
+// firstNumber = result;
+
+
+// //store the operand to be used in the operation
+// operand = e.target.value 
+// //store the second numbers in the second number variable
+// secondNumber = e.target.value
+// //once we have our final result click = 
+// operation(operand, firstNumber, secondNumber)
+// //make sure to parse numbers into strings and vice versa
+
 const add = (num1, num2) => num1 + num2;
 
 const subtract = (num1, num2) => num1 - num2;
@@ -119,73 +133,57 @@ const operation = (operand, num1, num2) => {
     }
 };
 
+const clearDisplay = (storeVal, displayValue) => {
+    storeVal.first = '';
+    storeVal.operand = '';
+    storeVal.second = '';
+    storeVal.result = '';
+    displayValue.textContent = '';
+};
 
+const multipleOperands = (storeVal, e) => {
+    storeVal.result = operation(storeVal.operand, storeVal.first, storeVal.second);
+    storeVal.first = storeVal.result;
+    storeVal.operand = e.target.value;
+    storeVal.second = '';
+};
 
 let displayValue = document.querySelector('.output');
+displayValue.textContent = '';
 
-
-// const storeValues = {
-//     first: '',
-//     second: '',
-//     operand: '',
-//     result: ''
-// };
-
-let firstNumber = '';
-let operand = '';
-let secondNumber = '';
-let result = '';
+const storeVal = {
+    first: '',
+    second: '',
+    operand: '',
+    result: '',
+};
 
 document.querySelectorAll('button').forEach((number) => {
     number.addEventListener('click', (e) => {
 
-        // if (result.toString() !== ''){
-        //     result = firstNumber;
-        //     console.log(firstNumber)
-        // }
-        
         //store the first number to be operated when there is no operand yet
-        if (e.target.classList.contains('number') && operand === '') {
-            firstNumber += e.target.value
-            console.log(firstNumber)
+        if (e.target.classList.contains('number') && storeVal.operand === '') {
+            storeVal.first += e.target.value;
+            displayValue.textContent = storeVal.first;
 
         } else if (e.target.classList.contains('operand')) { //store the operand to be used in operation
-            if (firstNumber && operand && secondNumber) {
-                result = operation(operand, firstNumber, secondNumber);
-                firstNumber = result;
-                operand = e.target.value
-                secondNumber = '';
-                console.log(result)
-                
-                
+            if (storeVal.first && storeVal.operand && storeVal.second) {
+                multipleOperands(storeVal, e);
+
             } else {
-                operand = e.target.value
-                console.log(operand)
-                
+                storeVal.operand = e.target.value;
+                displayValue.textContent = storeVal.first + storeVal.operand;
+
             }
+        } else if (e.target.classList.contains('number') && storeVal.operand !== '') { //store the second number when there is an operand
+            storeVal.second += e.target.value;
+            displayValue.textContent = storeVal.first + storeVal.operand + storeVal.second;
 
-        } else if (e.target.classList.contains('number') && operand !== '') { //store the second number when there is an operand
-            secondNumber += e.target.value
-            console.log(secondNumber)
-            
-           
-        } 
+        } else if (e.target.value === '=' && storeVal.first && storeVal.operand && storeVal.second) {
+            displayValue.textContent = operation(storeVal.operand, storeVal.first, storeVal.second);
 
-        // //use the result of the operation as the first number to be operated
-        // firstNumber = result;
-
-
-        // //store the operand to be used in the operation
-        // operand = e.target.value 
-        // //store the second numbers in the second number variable
-        // secondNumber = e.target.value
-        // //once we have our final result click = 
-        // operation(operand, firstNumber, secondNumber)
-        // //make sure to parse numbers into strings and vice versa
-
-
-        if (e.target.value === '=') {
-            displayValue.textContent = operation(storeValues.operand, parseInt(storeValues.number), parseInt(storeValues.numberTwo));
+        } else if (e.target.value === 'C') {
+            clearDisplay(storeVal, displayValue);
 
         }
 
