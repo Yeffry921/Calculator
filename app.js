@@ -169,6 +169,7 @@ document.querySelectorAll('button').forEach((number) => {
         } else if (e.target.classList.contains('operand')) { //store the operand to be used in operation
             if (storeVal.first && storeVal.operand && storeVal.second) {
                 multipleOperands(storeVal, e);
+                displayValue.textContent = storeVal.result + storeVal.operand;
 
             } else {
                 storeVal.operand = e.target.value;
