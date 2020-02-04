@@ -6,46 +6,40 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Calculator</title>
-    <style>
-
-        button {
-            border: 1px solid darkslategrey;
-            padding: 10px;
-            background-color: #f1f3f4;
-        }
-
-        .number:hover {
-            background-color: #dfe1e5;
-        }
-    </style>
+    <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
     <div class="calculator">
-        <div class="column1">
-            <button value="C" class="utily">C</button>
-            <button value="=" class="utily">=</button>
-            <button value="9" class="number">9</button>
-            <button value="8" class="number">8</button>
-        </div>
-        <div class="column2">
-            <button value="7" class="number">7</button>
-            <button value="6" class="number">6</button>
-            <button value="5" class="number">5</button>
-            <button value="4" class="number">4</button>
-        </div>
-        <div class="column3">
-            <button value="3" class="number">3</button>
-            <button value="2" class="number">2</button>
-            <button value="1" class="number">1</button>
-            <button value="0" class="number">0</button>
-            <button value="+" class="operand">+</button>
-            <button value="-" class="operand">-</button>
-            <button value="/" class="operand">/</button>
-            <button value="*" class="operand">x</button>
+        <div class="wrapper">
+            <input type="text" class="output" disabled>
 
-            <div class="output"></div>
+            <div class="inputs">
+                <button value="+" class="operand">+</button>
+                <button value="-" class="operand">-</button>
+                <button value="/" class="operand">/</button>
+                <button value="*" class="operand">x</button>
+                <button value="." class="decimal">.</button>
+
+                <button value="C" class="utily">C</button>
+                <button value="9" class="number">9</button>
+                <button value="8" class="number">8</button>
+                <button value="7" class="number">7</button>
+
+                <button value="6" class="number">6</button>
+                <button value="5" class="number">5</button>
+                <button value="4" class="number">4</button>
+                <button value="3" class="number">3</button>
+
+                <button value="2" class="number">2</button>
+                <button value="1" class="number">1</button>
+                <button value="0" class="number">0</button>
+                <button value="=" class="utily">=</button>
+
+            </div>
+
         </div>
+
 
     </div>
 
