@@ -1,0 +1,31 @@
+*{
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+}
+.calculator{
+    height: 100vh;
+}
+.wrapper{
+    display: flex;
+    height: 100%;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    
+}
+.wrapper input {
+    padding: 8px;
+    border: 2px solid black;
+}
+.inputs{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 2px solid red;
+    height: 200px;
+}
+.inputs button{
+    width: 20px;
+    padding: 15px;
+}
