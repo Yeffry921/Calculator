@@ -10,37 +10,30 @@
 </head>
 
 <body>
-    <div class="calculator">
-        <div class="wrapper">
-            
-            <input type="text" class="output" disabled>
-            <div class="inputs">
-                <button value="+" class="operand">+</button>
-                <button value="-" class="operand">-</button>
-                <button value="/" class="operand">/</button>
-                <button value="*" class="operand">x</button>
-                <button value="." class="decimal">.</button>
-
-                <button value="C" class="utily">C</button>
-                <button value="9" class="number">9</button>
-                <button value="8" class="number">8</button>
-                <button value="7" class="number">7</button>
-
-                <button value="6" class="number">6</button>
-                <button value="5" class="number">5</button>
-                <button value="4" class="number">4</button>
-                <button value="3" class="number">3</button>
-
-                <button value="2" class="number">2</button>
-                <button value="1" class="number">1</button>
-                <button value="0" class="number">0</button>
-                <button value="=" class="utily">=</button>
-
-            </div>
-
+    <div class="calculator-grid">
+        <div class="output">
+            <div class="previous-operand"></div>
+            <div class="current-operand"></div>
         </div>
 
-
+        <button class="span-two">AC</button>
+        <button>DEL</button>
+        <button>÷</button>
+        <button>1</button>
+        <button>2</button>
+        <button>3</button>
+        <button>*</button>
+        <button>4</button>
+        <button>5</button>
+        <button>6</button>
+        <button>+</button>
+        <button>7</button>
+        <button>8</button>
+        <button>9</button>
+        <button>-</button>
+        <button>.</button>
+        <button>0</button>
+        <button class="span-two">=</button>
     </div>
 
 
