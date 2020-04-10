@@ -1,6 +1,8 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+
 *, *::before, *::after{
     box-sizing: border-box;
-    font-family: Gotham Rounded, sans-serif;
+    font-family: 'Roboto', sans-serif;
 }
 
 body {
@@ -48,6 +50,7 @@ body {
 .output .previous-operand {
     color: #fff;
     font-family: 1.5rem;
+    font-size: 1.5rem;
 }
 
 .output .current-operand {
