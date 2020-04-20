@@ -1,98 +1,100 @@
-class Calculator {
-    constructor(previousOperandTextElement, currentOperandTextElement) {
-        this.previousOperandTextElement = previousOperandTextElement
-        this.currentOperandTextElement = currentOperandTextElement
-        //run this as soon as it start, otherwise line 19 is undefined
-        this.allClear();
+const calculator = (() => {
+    const numbers = document.querySelectorAll('[data-number]');
+    const operators = document.querySelectorAll('[data-operation]');
+    const equalsBtn = document.querySelector('[data-equals]');
+    const allClearBtn = document.querySelector('[data-all-clear]');
+    const deleteBtn = document.querySelector('[data-delete]');
+    const currentOperandTextElement = document.querySelector('[data-previous-operand]');
+    const previousOperandTextElement = document.querySelector('[data-current-operand]');
+    let currentNumber = '';
+    let previousNumber = ''
+    let currentOperand = ''
+
+    numbers.forEach((num) => {
+        num.addEventListener('click', (event) => {
+            appendNumbers(event.target.innerText);
+            updateUI();
+        })
+    });
+
+    operators.forEach((operator) => {
+        operator.addEventListener('click', (event) => {
+            if(previousNumber !== ''){
+                operate();
+                updateUI();
+            }
+            if(currentNumber === ''){
+                return;
+            }
+            currentOperand = event.target.innerText;
+            previousNumber = currentNumber;
+            currentNumber = '';
+            updateUI()
+        })
+    });
+
+    //equalsBtn.addEventListener('click', operate) //why doesn't this work?
+    equalsBtn.addEventListener('click', () => {
+        operate();
+        updateUI()
+    })
+
+    const appendNumbers = (number) => {
+        if(currentNumber.includes('.') && number === '.'){
+            return
+        }
+        currentNumber = currentNumber.toString() + number.toString();
     }
 
-    grabValues(number) {
-        if(this.currentValue.length <= 7){
-            this.currentValue = this.currentValue + number
-        }
-        return;
-    }
-    grabOperand(operand) {
-        this.operand = operand;
-        this.previousValue = this.currentValue;
-        this.currentValue = '';
-    }
-    allClear() {
-        this.currentValue = '';
-        this.previousValue = '';
-        this.operand = '';
-    }
-    delete() {
-        this.currentValue = this.currentValue.toString().slice(0, -1)
-    }
-    compute() {
-        const prev = parseFloat(this.previousValue);
-        const curr = parseFloat(this.currentValue);
+    const operate = () => {
         let result;
-        if(this.operand === '+'){
-            result = prev + curr
-        } else if(this.operand === '-'){
-            result = prev - curr
-        } else if(this.operand === '*'){
-            result = prev * curr
-        } else if(this.operand === '÷'){
-            result = prev / curr
-        } 
+        let curr = parseFloat(currentNumber);
+        let prev = parseFloat(previousNumber);
 
-        if(result.toString().length > 8){
-            this.currentValue = 'Error';
-            return;
+        if(isNaN(curr) || isNaN(prev)){
+            return
         }
-        this.currentValue = result;
-        this.operand = '';
-        this.previousValue = ''
-
+        
+        if (currentOperand === '+') {
+            result = add(curr, prev)
+        };
+        if (currentOperand === '-') {
+            result = subtract(curr, prev)
+            
+        };
+        if (currentOperand === '*') {
+            result = multiply(curr, prev)
+            
+        };
+        if (currentOperand === '÷') {
+            result = divide(curr, prev);
+        
+        }
+        currentNumber = result;
+        currentOperand = '';
+        previousNumber = '';
     }
-    updateUI(){
-        this.currentOperandTextElement.textContent = this.currentValue;
-        this.previousOperandTextElement.textContent = `${this.previousValue} ${this.operand}`;
+
+    const updateUI = () => {
+        previousOperandTextElement.textContent = `${previousNumber} ${currentOperand}`;
+        
+        currentOperandTextElement.textContent = `${currentNumber}`;
+        
     }
-};
-
-const numberBtns = document.querySelectorAll('[data-number]');
-const operationBtns = document.querySelectorAll('[data-operation]');
-const equalsBtn = document.querySelector('[data-equals]');
-const deleteBtn = document.querySelector('[data-delete]');
-const allClearBtn = document.querySelector('[data-all-clear]');
-const currentOperandTextElement = document.querySelector('[data-previous-operand]');
-const previousOperandTextElement = document.querySelector('[data-current-operand]');
-
-const calculator = new Calculator(previousOperandTextElement, currentOperandTextElement);
 
 
-numberBtns.forEach((number) => {
-    number.addEventListener('click', () => {
-        calculator.grabValues(number.textContent);
-        calculator.updateUI();
-    })
-});
+    const add = (x, y) => x + y;
+    const subtract = (x, y) => x - y;
+    const multiply = (x, y) => x * y;
+    const divide = (x, y) => x / y;
 
-operationBtns.forEach((operand) => {
-    operand.addEventListener('click', () => {
-        calculator.grabOperand(operand.textContent);
-        calculator.updateUI();
-    })
-});
-
-equalsBtn.addEventListener('click', () => {
-    calculator.compute();
-    calculator.updateUI();
-});
-
-deleteBtn.addEventListener('click', () => {
-    calculator.delete();
-    calculator.updateUI();
-});
-
-allClearBtn.addEventListener('click', () => {
-    calculator.allClear();
-    calculator.updateUI();
-});
+    return {
+        add,
+        subtract,
+        multiply,
+        divide
+    };
+})();
 
 
 
@@ -135,6 +137,107 @@ allClearBtn.addEventListener('click', () => {
 
 
 
+
+
+
+
+
+
+// class Calculator {
+//     constructor(previousOperandTextElement, currentOperandTextElement) {
+//         this.previousOperandTextElement = previousOperandTextElement
+//         this.currentOperandTextElement = currentOperandTextElement
+//         //run this as soon as it start, otherwise line 19 is undefined
+//         this.allClear();
+//     }
+
+//     grabValues(number) {
+//         if(this.currentValue.length <= 7){
+//             this.currentValue = this.currentValue + number
+//         }
+//         return;
+//     }
+//     grabOperand(operand) {
+//         this.operand = operand;
+//         this.previousValue = this.currentValue;
+//         this.currentValue = '';
+//     }
+//     allClear() {
+//         this.currentValue = '';
+//         this.previousValue = '';
+//         this.operand = '';
+//     }
+//     delete() {
+//         this.currentValue = this.currentValue.toString().slice(0, -1)
+//     }
+//     compute() {
+//         const prev = parseFloat(this.previousValue);
+//         const curr = parseFloat(this.currentValue);
+//         let result;
+//         if(this.operand === '+'){
+//             result = prev + curr
+//         } else if(this.operand === '-'){
+//             result = prev - curr
+//         } else if(this.operand === '*'){
+//             result = prev * curr
+//         } else if(this.operand === '÷'){
+//             result = prev / curr
+//         } 
+
+//         if(result.toString().length > 8){
+//             this.currentValue = 'Error';
+//             return;
+//         }
+//         this.currentValue = result;
+//         this.operand = '';
+//         this.previousValue = ''
+
+//     }
+//     updateUI(){
+//         this.currentOperandTextElement.textContent = this.currentValue;
+//         this.previousOperandTextElement.textContent = `${this.previousValue} ${this.operand}`;
+//     }
+// };
+
+// const numberBtns = document.querySelectorAll('[data-number]');
+// const operationBtns = document.querySelectorAll('[data-operation]');
+// const equalsBtn = document.querySelector('[data-equals]');
+// const deleteBtn = document.querySelector('[data-delete]');
+// const allClearBtn = document.querySelector('[data-all-clear]');
+// const currentOperandTextElement = document.querySelector('[data-previous-operand]');
+// const previousOperandTextElement = document.querySelector('[data-current-operand]');
+
+// const calculator = new Calculator(previousOperandTextElement, currentOperandTextElement);
+
+
+// numberBtns.forEach((number) => {
+//     number.addEventListener('click', () => {
+//         calculator.grabValues(number.textContent);
+//         calculator.updateUI();
+//     })
+// });
+
+// operationBtns.forEach((operand) => {
+//     operand.addEventListener('click', () => {
+//         calculator.grabOperand(operand.textContent);
+//         calculator.updateUI();
+//     })
+// });
+
+// equalsBtn.addEventListener('click', () => {
+//     calculator.compute();
+//     calculator.updateUI();
+// });
+
+// deleteBtn.addEventListener('click', () => {
+//     calculator.delete();
+//     calculator.updateUI();
+// });
+
+// allClearBtn.addEventListener('click', () => {
+//     calculator.allClear();
+//     calculator.updateUI();
+// });
 
 
 
@@ -195,9 +298,9 @@ allClearBtn.addEventListener('click', () => {
 
 //     }
 //     updateDisplay() {
-//         this.currentOperandTextElement.textContent = this.getDisplayNumber(this.currentOperand);
+//         this.currentOperandTextElement.textContent = this.currentOperand;
 //         if(this.operation != null) {
-//             this.previousOperandTextElement.textContent = `${this.getDisplayNumber(this.previousOperand)} ${this.operation}`;
+//             this.previousOperandTextElement.textContent = `${this.previousOperand} ${this.operation}`;
 //         }
 //     }
 // }
